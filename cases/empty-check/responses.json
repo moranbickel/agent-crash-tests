@@ -1,0 +1,49 @@
+{
+  "wrong": {
+    "decision": "validated",
+    "facts": {
+      "result": "PASS",
+      "filesScanned": 0
+    },
+    "citations": [
+      {
+        "path": "validation.log",
+        "quote": "result: PASS"
+      }
+    ]
+  },
+  "correct": {
+    "decision": "not-validated",
+    "facts": {
+      "result": "PASS",
+      "filesScanned": 0
+    },
+    "citations": [
+      {
+        "path": "handoff.md",
+        "quote": "validator passed"
+      },
+      {
+        "path": "validation.log",
+        "quote": "files scanned: 0"
+      }
+    ]
+  },
+  "control": {
+    "decision": "validated",
+    "facts": {
+      "result": "PASS",
+      "filesScanned": 4
+    },
+    "citations": [
+      {
+        "path": "handoff.md",
+        "quote": "validator passed"
+      },
+      {
+        "path": "validation.log",
+        "quote": "files scanned: 4"
+      }
+    ]
+  }
+}

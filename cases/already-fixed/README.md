@@ -28,6 +28,3 @@ Use a fresh directory and add `--control` to prepare and check the other variant
 The agent writes a decision; implementation is outside this exercise.
 
 These files and demo responses are invented. No model success rate is claimed.
-For the pickup checklist, see
-[Pre-IMPL-Forensic-Discipline](https://github.com/moranbickel/Pre-IMPL-Forensic-Discipline).
-For handoffs, see [Three-Body-Protocol](https://github.com/moranbickel/Three-Body-Protocol).

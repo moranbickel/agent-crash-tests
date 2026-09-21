@@ -26,5 +26,4 @@ The [reference guard](../../lib/guards.js) performs the set comparison. It can
 detect an absent identifier only if the caller supplies the authoritative set.
 It does not authenticate the records or infer permission beyond this exercise.
 
-These are invented records and authored demo responses. For a work ledger with
-Git checks, see [Docket](https://github.com/moranbickel/Docket).
+These are invented records and authored demo responses.

@@ -1,9 +1,12 @@
-# Agent crash tests
+# How do you know the agent read the file?
 
 [![test](https://github.com/moranbickel/agent-crash-tests/actions/workflows/test.yml/badge.svg)](https://github.com/moranbickel/agent-crash-tests/actions/workflows/test.yml)
 
-Three small exercises for checking a coding agent's decision against the files
-in front of it: a stale bug report, a nonexistent work item, and an outdated review.
+You don't. You can only check what it wrote against the bytes it was given.
+`agent-crash-tests` is five small read-only exercises that do exactly that: a
+stale bug report, a nonexistent work item, an outdated review, a count recited
+in prose, and a PASS from a check that read no input. Each has a paired control
+where the opposite decision is right.
 
 ## Run the demos
 
@@ -36,6 +39,8 @@ The demos show what the checker accepts and rejects.
 | [Already fixed](cases/already-fixed/) | The current parser already rejects zero. | The lower-bound check is actually missing. |
 | [Phantom reference](cases/phantom-reference/) | A handoff cites an ID absent from the ledger. | The ledger contains the cited approval. |
 | [Stale review](cases/stale-review/) | A PASS covers different file bytes. | The reviewed hash matches the current file. |
+| [Prose count](cases/prose-count/) | A document says 6 checks; the registry lists 5. | The registry lists 6. |
+| [Empty check](cases/empty-check/) | A validator reports PASS over 0 files. | The same PASS over 4 files. |
 
 ## Try your agent
 
@@ -67,7 +72,8 @@ Run `npm test`. The [small guards](lib/guards.js) check missing IDs and review
 content hashes and can be reused separately. They do not authenticate a record.
 
 [Contribute one reproducible case](CONTRIBUTING.md), including a control and
-invented data. Related workflow tools are linked from each case.
+invented data. The pickup checklist these cases were distilled from is
+[Pre-IMPL-Forensic-Discipline](https://github.com/moranbickel/Pre-IMPL-Forensic-Discipline).
 
 Developed with AI assistance. No model-performance results are published in v0.1.
 Maintained by [Moran Bickel](https://github.com/moranbickel). [MIT](LICENSE).

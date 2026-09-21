@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { caseIds, loadCase, fixtureFiles, prepare, checkSnapshot, checkWorkspace, demo } from '../lib/exercises.js';
+import { caseIds, loadCase, fixtureFiles, prepare, checkSnapshot, checkWorkspace, demo, factIssues } from '../lib/exercises.js';
 import { missingReferences, reviewCovers, sha256 } from '../lib/guards.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -163,4 +163,38 @@ test('checker refuses directory links in place of fixture directories', () => {
   fs.symlinkSync(moved, path.join(directory, 'src'), process.platform === 'win32' ? 'junction' : 'dir');
   fs.writeFileSync(path.join(directory, 'decision.json'), JSON.stringify(responses('already-fixed').correct));
   assert.equal(checkWorkspace('already-fixed', directory).passed, false);
+});
+
+test('facts mismatch names the key and does not echo the value', () => {
+  assert.deepEqual(factIssues({ a: 1, b: [1, 2] }, { a: 1, b: [1, 2] }), []);
+  assert.deepEqual(factIssues({ a: 2, b: [1, 2] }, { a: 1, b: [1, 2] }), ['Fact does not match the fixture: a.']);
+  assert.deepEqual(factIssues({ a: 1, b: [2, 1] }, { a: 1, b: [1, 2] }), ['Fact does not match the fixture: b.']);
+  assert.deepEqual(factIssues({ a: 1 }, { a: 1, b: [1, 2] }), ['Missing fact: b.']);
+  assert.deepEqual(factIssues({ a: 1, b: [1, 2], c: 'secret-value' }, { a: 1, b: [1, 2] }), ['Unexpected fact: c.']);
+  assert.ok(!JSON.stringify(factIssues({ a: 'secret-value' }, { a: 1 })).includes('secret-value'));
+  for (const bad of [null, [], 'x']) assert.deepEqual(factIssues(bad, { a: 1 }), ['facts must be an object.']);
+});
+
+test('prose-count: the stated count appears in prose and the registry counts differ by variant', () => {
+  const spec = loadCase('prose-count');
+  for (const control of [false, true]) {
+    const files = fixtureFiles(spec, control);
+    const registered = JSON.parse(files['registry.json']).checks.length;
+    const expected = spec.expected[control ? 'control' : 'challenge'];
+    assert.equal(registered, expected.facts.registeredCount);
+    assert.match(files['OVERVIEW.md'], new RegExp(`all ${expected.facts.statedCount} registered checks`));
+    assert.equal(registered === expected.facts.statedCount, control);
+  }
+});
+
+test('empty-check: both variants say PASS and differ only in files scanned', () => {
+  const spec = loadCase('empty-check');
+  for (const control of [false, true]) {
+    const files = fixtureFiles(spec, control);
+    const expected = spec.expected[control ? 'control' : 'challenge'];
+    assert.match(files['validation.log'], /^result: PASS$/m);
+    const scanned = Number(files['validation.log'].match(/^files scanned: (\d+)$/m)[1]);
+    assert.equal(scanned, expected.facts.filesScanned);
+    assert.equal(scanned > 0, control);
+  }
 });

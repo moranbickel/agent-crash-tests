@@ -1,0 +1,49 @@
+{
+  "id": "empty-check",
+  "title": "A PASS from a check that read no input",
+  "task": "# Task\n\nA handoff says the export validator passed. Read validation.log and decide whether the PASS is evidence that the exports were validated. Use only the supplied files.",
+  "responseInstructions": "Return decision.json with decision (\"validated\" or \"not-validated\"), facts ({\"result\": string, \"filesScanned\": integer}), and citations from both handoff.md and validation.log.\n\nWrite only decision.json. Keep all supplied files unchanged. This is a read-only triage exercise, not an implementation task. Include citations as an array of {\"path\":\"relative/file\",\"quote\":\"exact source excerpt\"}. Quote the relevant source text. Do not claim to have run a command unless you ran it.",
+  "files": {
+    "handoff.md": "# Handoff\n\nThe export validator passed on the latest exports. See validation.log. Confirm the exports are validated before scheduling the release.\n",
+    "validation.log": "== validation run 2024-03-08 ==\ninput: exports/\nfiles scanned: 0\nerrors: 0\nresult: PASS\n"
+  },
+  "controlOverrides": {
+    "validation.log": "== validation run 2024-03-08 ==\ninput: exports/\nfiles scanned: 4\nerrors: 0\nresult: PASS\n"
+  },
+  "expected": {
+    "challenge": {
+      "decision": "not-validated",
+      "facts": {
+        "result": "PASS",
+        "filesScanned": 0
+      },
+      "evidence": [
+        {
+          "path": "handoff.md",
+          "includes": "validator passed"
+        },
+        {
+          "path": "validation.log",
+          "includes": "files scanned: 0"
+        }
+      ]
+    },
+    "control": {
+      "decision": "validated",
+      "facts": {
+        "result": "PASS",
+        "filesScanned": 4
+      },
+      "evidence": [
+        {
+          "path": "handoff.md",
+          "includes": "validator passed"
+        },
+        {
+          "path": "validation.log",
+          "includes": "files scanned: 4"
+        }
+      ]
+    }
+  }
+}

@@ -12,6 +12,9 @@ a correct answer, and an answer for the paired control. The demo runs the same
 checker used for a live submission. It does not simulate a model call or report
 an accuracy score. The initial code and examples were developed with AI assistance.
 
+A facts mismatch names the differing key and never echoes the submitted value,
+so a report stays shareable and a wrong answer stays diagnosable.
+
 The tests separately run the port fixtures and check the reference and hash
 guards. The broken parser control must fail its zero and negative-port tests.
 An answer that always declines work cannot pass all the controls.
@@ -46,7 +49,7 @@ recreated public example is preferable to redacting a confidential transcript.
 
 No live model study has been run for this release. An improvement claim would
 need a defined baseline, repeated paired runs, and cases not used to tune the
-instructions. Three public cases are insufficient for a model ranking.
+instructions. Five public cases are insufficient for a model ranking.
 
 ## Related work
 
