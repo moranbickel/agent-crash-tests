@@ -2,7 +2,7 @@
   "name": "agent-crash-tests",
   "version": "0.1.0",
   "private": true,
-  "description": "Three synthetic exercises for checking coding-agent decisions against repository evidence.",
+  "description": "Five synthetic exercises for checking coding-agent decisions against repository evidence.",
   "type": "module",
   "engines": { "node": ">=22" },
   "scripts": {

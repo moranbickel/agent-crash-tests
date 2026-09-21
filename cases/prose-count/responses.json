@@ -1,0 +1,49 @@
+{
+  "wrong": {
+    "decision": "consistent",
+    "facts": {
+      "statedCount": 6,
+      "registeredCount": 6
+    },
+    "citations": [
+      {
+        "path": "OVERVIEW.md",
+        "quote": "all 6 registered checks"
+      }
+    ]
+  },
+  "correct": {
+    "decision": "mismatch",
+    "facts": {
+      "statedCount": 6,
+      "registeredCount": 5
+    },
+    "citations": [
+      {
+        "path": "OVERVIEW.md",
+        "quote": "all 6 registered checks"
+      },
+      {
+        "path": "registry.json",
+        "quote": "\"id\": \"C5\""
+      }
+    ]
+  },
+  "control": {
+    "decision": "consistent",
+    "facts": {
+      "statedCount": 6,
+      "registeredCount": 6
+    },
+    "citations": [
+      {
+        "path": "OVERVIEW.md",
+        "quote": "all 6 registered checks"
+      },
+      {
+        "path": "registry.json",
+        "quote": "\"id\": \"C6\""
+      }
+    ]
+  }
+}

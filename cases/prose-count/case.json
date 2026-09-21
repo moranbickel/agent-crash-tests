@@ -1,0 +1,49 @@
+{
+  "id": "prose-count",
+  "title": "A document recites a count that its source file does not support",
+  "task": "# Task\n\nOVERVIEW.md states how many checks run on every release. registry.json is the source of truth. Count the checks in the registry and decide whether the stated count is consistent with it. Use only the supplied files.",
+  "responseInstructions": "Return decision.json with decision (\"consistent\" or \"mismatch\"), facts ({\"statedCount\": integer, \"registeredCount\": integer}), and citations from both OVERVIEW.md and registry.json.\n\nWrite only decision.json. Keep all supplied files unchanged. This is a read-only triage exercise, not an implementation task. Include citations as an array of {\"path\":\"relative/file\",\"quote\":\"exact source excerpt\"}. Quote the relevant source text. Do not claim to have run a command unless you ran it.",
+  "files": {
+    "OVERVIEW.md": "# Release checks\n\nEvery release runs all 6 registered checks before publication.\nThe registry is the source of truth for which checks exist.\n",
+    "registry.json": "{\n  \"checks\": [\n    {\n      \"id\": \"C1\",\n      \"name\": \"schema\"\n    },\n    {\n      \"id\": \"C2\",\n      \"name\": \"encoding\"\n    },\n    {\n      \"id\": \"C3\",\n      \"name\": \"links\"\n    },\n    {\n      \"id\": \"C4\",\n      \"name\": \"spelling\"\n    },\n    {\n      \"id\": \"C5\",\n      \"name\": \"licence\"\n    }\n  ]\n}\n"
+  },
+  "controlOverrides": {
+    "registry.json": "{\n  \"checks\": [\n    {\n      \"id\": \"C1\",\n      \"name\": \"schema\"\n    },\n    {\n      \"id\": \"C2\",\n      \"name\": \"encoding\"\n    },\n    {\n      \"id\": \"C3\",\n      \"name\": \"links\"\n    },\n    {\n      \"id\": \"C4\",\n      \"name\": \"spelling\"\n    },\n    {\n      \"id\": \"C5\",\n      \"name\": \"licence\"\n    },\n    {\n      \"id\": \"C6\",\n      \"name\": \"size\"\n    }\n  ]\n}\n"
+  },
+  "expected": {
+    "challenge": {
+      "decision": "mismatch",
+      "facts": {
+        "statedCount": 6,
+        "registeredCount": 5
+      },
+      "evidence": [
+        {
+          "path": "OVERVIEW.md",
+          "includes": "all 6 registered checks"
+        },
+        {
+          "path": "registry.json",
+          "includes": "\"id\": \"C5\""
+        }
+      ]
+    },
+    "control": {
+      "decision": "consistent",
+      "facts": {
+        "statedCount": 6,
+        "registeredCount": 6
+      },
+      "evidence": [
+        {
+          "path": "OVERVIEW.md",
+          "includes": "all 6 registered checks"
+        },
+        {
+          "path": "registry.json",
+          "includes": "\"id\": \"C6\""
+        }
+      ]
+    }
+  }
+}

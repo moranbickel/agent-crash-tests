@@ -26,6 +26,5 @@ The [hash guard](../../lib/guards.js) compares content and requires a PASS verdi
 It does not authenticate a reviewer or grant release permission. The fixture
 uses a file hash rather than a Git commit or a complete attestation chain.
 
-These are invented records and authored demo responses. Related tools:
-[Russian-Judge](https://github.com/moranbickel/Russian-Judge) for verdicts and
-[CSAE](https://github.com/moranbickel/CSAE) for linking reviews to changes.
+These are invented records and authored demo responses. For linking a review
+to the exact change it covers, see [CSAE](https://github.com/moranbickel/CSAE).
