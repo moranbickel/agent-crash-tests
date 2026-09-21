@@ -1,0 +1,64 @@
+{
+  "wrong": {
+    "decision": "proceed",
+    "facts": {
+      "citedId": "TASK-204",
+      "knownIds": [
+        "TASK-201",
+        "TASK-203",
+        "TASK-204"
+      ]
+    },
+    "citations": [
+      {
+        "path": "handoff.md",
+        "quote": "TASK-204 approved the version 2 export format."
+      }
+    ]
+  },
+  "correct": {
+    "decision": "missing-reference",
+    "facts": {
+      "citedId": "TASK-204",
+      "knownIds": [
+        "TASK-201",
+        "TASK-203"
+      ]
+    },
+    "citations": [
+      {
+        "path": "handoff.md",
+        "quote": "TASK-204"
+      },
+      {
+        "path": "ledger.json",
+        "quote": "TASK-201"
+      },
+      {
+        "path": "ledger.json",
+        "quote": "TASK-203"
+      }
+    ]
+  },
+  "control": {
+    "decision": "proceed",
+    "facts": {
+      "citedId": "TASK-204",
+      "knownIds": [
+        "TASK-201",
+        "TASK-203",
+        "TASK-204"
+      ]
+    },
+    "citations": [
+      {
+        "path": "handoff.md",
+        "quote": "TASK-204"
+      },
+      {
+        "path": "ledger.json",
+        "quote": "TASK-204"
+      }
+    ]
+  }
+}

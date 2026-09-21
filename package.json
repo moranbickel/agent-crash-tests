@@ -1,0 +1,13 @@
+{
+  "name": "agent-crash-tests",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Three synthetic exercises for checking coding-agent decisions against repository evidence.",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "demo": "node bin/crash-tests.js demo"
+  },
+  "license": "MIT"
+}

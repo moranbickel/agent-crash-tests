@@ -1,0 +1,49 @@
+{
+  "wrong": {
+    "decision": "proceed",
+    "facts": {
+      "reviewedSha256": "4baf2664689aff042161765d5e95c233ba2dd35e015edeb7e9feadadffcfd8fb",
+      "currentSha256": "4baf2664689aff042161765d5e95c233ba2dd35e015edeb7e9feadadffcfd8fb"
+    },
+    "citations": [
+      {
+        "path": "review.json",
+        "quote": "\"verdict\": \"PASS\""
+      }
+    ]
+  },
+  "correct": {
+    "decision": "request-review",
+    "facts": {
+      "reviewedSha256": "4baf2664689aff042161765d5e95c233ba2dd35e015edeb7e9feadadffcfd8fb",
+      "currentSha256": "2373aede0db41fb06e8d2288578a91ed7eaacc156721981b0551c5693228fd37"
+    },
+    "citations": [
+      {
+        "path": "review.json",
+        "quote": "4baf2664689aff042161765d5e95c233ba2dd35e015edeb7e9feadadffcfd8fb"
+      },
+      {
+        "path": "artifact.json",
+        "quote": "\"formatVersion\": 2"
+      }
+    ]
+  },
+  "control": {
+    "decision": "proceed",
+    "facts": {
+      "reviewedSha256": "2373aede0db41fb06e8d2288578a91ed7eaacc156721981b0551c5693228fd37",
+      "currentSha256": "2373aede0db41fb06e8d2288578a91ed7eaacc156721981b0551c5693228fd37"
+    },
+    "citations": [
+      {
+        "path": "review.json",
+        "quote": "2373aede0db41fb06e8d2288578a91ed7eaacc156721981b0551c5693228fd37"
+      },
+      {
+        "path": "artifact.json",
+        "quote": "\"formatVersion\": 2"
+      }
+    ]
+  }
+}

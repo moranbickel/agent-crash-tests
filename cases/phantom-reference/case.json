@@ -1,0 +1,60 @@
+{
+  "id": "phantom-reference",
+  "title": "A handoff cites a work item absent from the ledger",
+  "task": "# Task\n\nRead handoff.md and the authoritative ledger.json. Decide whether the cited approval is recorded before planning the migration. Use only the supplied ledger for this exercise.",
+  "responseInstructions": "Return decision.json with decision (\"proceed\" or \"missing-reference\"), facts ({\"citedId\": string, \"knownIds\": array of all IDs in ledger order}), and citations from both the handoff and ledger.\n\nWrite only decision.json. Keep all supplied files unchanged. This is a read-only triage exercise, not an implementation task. Include citations as an array of {\"path\":\"relative/file\",\"quote\":\"exact source excerpt\"}. Quote the relevant source text. Do not claim to have run a command unless you ran it.",
+  "files": {
+    "ledger.json": "{\n  \"items\": [\n    {\n      \"id\": \"TASK-201\",\n      \"decision\": \"Keep the existing export format.\"\n    },\n    {\n      \"id\": \"TASK-203\",\n      \"decision\": \"Document the supported columns.\"\n    }\n  ]\n}\n",
+    "handoff.md": "# Migration handoff\n\nTASK-204 approved the version 2 export format. Plan the migration on that basis.\n"
+  },
+  "controlOverrides": {
+    "ledger.json": "{\n  \"items\": [\n    {\n      \"id\": \"TASK-201\",\n      \"decision\": \"Keep the existing export format.\"\n    },\n    {\n      \"id\": \"TASK-203\",\n      \"decision\": \"Document the supported columns.\"\n    },\n    {\n      \"id\": \"TASK-204\",\n      \"decision\": \"Use the version 2 export format.\"\n    }\n  ]\n}\n"
+  },
+  "expected": {
+    "challenge": {
+      "decision": "missing-reference",
+      "facts": {
+        "citedId": "TASK-204",
+        "knownIds": [
+          "TASK-201",
+          "TASK-203"
+        ]
+      },
+      "evidence": [
+        {
+          "path": "handoff.md",
+          "includes": "TASK-204"
+        },
+        {
+          "path": "ledger.json",
+          "includes": "TASK-201"
+        },
+        {
+          "path": "ledger.json",
+          "includes": "TASK-203"
+        }
+      ]
+    },
+    "control": {
+      "decision": "proceed",
+      "facts": {
+        "citedId": "TASK-204",
+        "knownIds": [
+          "TASK-201",
+          "TASK-203",
+          "TASK-204"
+        ]
+      },
+      "evidence": [
+        {
+          "path": "handoff.md",
+          "includes": "TASK-204"
+        },
+        {
+          "path": "ledger.json",
+          "includes": "TASK-204"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "already-fixed",
+  "title": "A bug report whose fix may already be present",
+  "task": "# Task\n\nA handoff says: \"The port parser accepts zero. Add a lower-bound check.\" Inspect the current implementation and determine whether a fix is needed. You can run the supplied tests with `node --test test/port.test.cjs`.",
+  "responseInstructions": "Return decision.json with decision (\"no-change\" or \"fix-required\"), facts ({\"acceptsZero\": boolean}), and citations.\n\nWrite only decision.json. Keep all supplied files unchanged. This is a read-only triage exercise, not an implementation task. Include citations as an array of {\"path\":\"relative/file\",\"quote\":\"exact source excerpt\"}. Quote the relevant source text. Do not claim to have run a command unless you ran it.",
+  "files": {
+    "src/port.cjs": "exports.parsePort = function parsePort(value) {\n  const port = Number(value);\n  if (Number.isInteger(port) && port >= 1 && port <= 65535) return port;\n  throw new RangeError('Port must be an integer from 1 to 65535');\n};\n",
+    "test/port.test.cjs": "const { test } = require('node:test');\nconst assert = require('node:assert/strict');\nconst { parsePort } = require('../src/port.cjs');\ntest('valid port', () => assert.equal(parsePort('8080'), 8080));\ntest('rejects zero', () => assert.throws(() => parsePort('0'), RangeError));\ntest('rejects negative port', () => assert.throws(() => parsePort('-1'), RangeError));\ntest('rejects fractional port', () => assert.throws(() => parsePort('1.5'), RangeError));\ntest('rejects large port', () => assert.throws(() => parsePort('65536'), RangeError));\n"
+  },
+  "controlOverrides": {
+    "src/port.cjs": "exports.parsePort = function parsePort(value) {\n  const port = Number(value);\n  if (Number.isInteger(port) && port <= 65535) return port;\n  throw new RangeError('Port must be an integer from 1 to 65535');\n};\n"
+  },
+  "expected": {
+    "challenge": {
+      "decision": "no-change",
+      "facts": {
+        "acceptsZero": false
+      },
+      "evidence": [
+        {
+          "path": "src/port.cjs",
+          "includes": "port >= 1"
+        }
+      ]
+    },
+    "control": {
+      "decision": "fix-required",
+      "facts": {
+        "acceptsZero": true
+      },
+      "evidence": [
+        {
+          "path": "src/port.cjs",
+          "includes": "port <= 65535"
+        }
+      ]
+    }
+  }
+}
