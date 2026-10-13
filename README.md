@@ -9,8 +9,9 @@ in prose, and a PASS from a check that read no input. Each has a paired control
 where the opposite decision is right.
 
 **Use it to** check whether a coding agent's triage decision (is this bug still
-open, does this work item exist, does this review cover the current file) is
-supported by the files it was given, with a local checker that needs no model call.
+open, does this work item exist, does this review cover the current file, does a
+recited count match its source, did a check read any input) is supported by the
+files it was given, with a local checker that needs no model call.
 
 ## 60-second demo
 
