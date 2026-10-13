@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 - Unreleased
+## 0.2.0 - 2026-10-13
 
 - Added two exercises, each with a paired control:
   - `prose-count`: a document recites a count that its source file does not support.
