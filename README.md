@@ -8,28 +8,45 @@ stale bug report, a nonexistent work item, an outdated review, a count recited
 in prose, and a PASS from a check that read no input. Each has a paired control
 where the opposite decision is right.
 
-## Run the demos
+**Use it to** check whether a coding agent's triage decision (is this bug still
+open, does this work item exist, does this review cover the current file) is
+supported by the files it was given, with a local checker that needs no model call.
 
-Requires Node.js 22 or newer and Git. No packages to install, API keys, or model calls.
+## 60-second demo
+
+Requires Node.js 22 or newer and Git. No packages to install, no API key, no model calls.
 
 ```text
 git clone https://github.com/moranbickel/agent-crash-tests
 cd agent-crash-tests
-node bin/crash-tests.js demo
+node bin/crash-tests.js list
+node bin/crash-tests.js demo stale-review
 ```
 
-Example output:
+Real output (`list`, then `demo stale-review`):
 
 ```text
+already-fixed: A bug report whose fix may already be present
+phantom-reference: A handoff cites a work item absent from the ledger
+stale-review: A PASS review covers different file contents
+prose-count: A document recites a count that its source file does not support
+empty-check: A PASS from a check that read no input
+
+SYNTHETIC DEMO — authored answers, no model calls
+
 stale-review
   REJECT authored wrong answer
     Decision should be request-review.
-    Reported facts do not match the fixture.
+    Fact does not match the fixture: currentSha256.
     Missing relevant evidence from review.json.
     Missing relevant evidence from artifact.json.
   ACCEPT authored correct answer
   ACCEPT authored control answer
+
+Demo expectations met. This is checker validation, not model accuracy.
 ```
+
+Run `node bin/crash-tests.js demo` with no case name to run all five.
 
 **These are synthetic fixtures and authored answers, not recorded model runs.**
 The demos show what the checker accepts and rejects.
@@ -75,5 +92,5 @@ content hashes and can be reused separately. They do not authenticate a record.
 invented data. The pickup checklist these cases were distilled from is
 [Pre-IMPL-Forensic-Discipline](https://github.com/moranbickel/Pre-IMPL-Forensic-Discipline).
 
-Developed with AI assistance. No model-performance results are published in v0.1.
+Developed with AI assistance. No model-performance results are published in v0.2.
 Maintained by [Moran Bickel](https://github.com/moranbickel). [MIT](LICENSE).
